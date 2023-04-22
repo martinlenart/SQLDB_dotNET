@@ -3,10 +3,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        TestModelsOnly();
+        PopulateModel();
 
     }
-    private static void TestModelsOnly()
+    private static void PopulateModel()
     {
         //Create a list of friends
         var _goodfriends = new List<csFriend>();

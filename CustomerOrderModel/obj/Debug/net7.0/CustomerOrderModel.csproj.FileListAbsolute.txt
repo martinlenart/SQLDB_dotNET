@@ -1,0 +1,15 @@
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/bin/Debug/net7.0/CustomerOrderModel
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/bin/Debug/net7.0/CustomerOrderModel.deps.json
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/bin/Debug/net7.0/CustomerOrderModel.runtimeconfig.json
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/bin/Debug/net7.0/CustomerOrderModel.dll
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/bin/Debug/net7.0/CustomerOrderModel.pdb
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.csproj.AssemblyReference.cache
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.GeneratedMSBuildEditorConfig.editorconfig
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.AssemblyInfoInputs.cache
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.AssemblyInfo.cs
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.csproj.CoreCompileInputs.cache
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.dll
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/refint/CustomerOrderModel.dll
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.pdb
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/CustomerOrderModel.genruntimeconfig.cache
+/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/CustomerOrderModel/obj/Debug/net7.0/ref/CustomerOrderModel.dll
