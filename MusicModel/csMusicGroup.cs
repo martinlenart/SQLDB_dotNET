@@ -8,15 +8,11 @@ namespace MusicModel
 		public string Name { get; set; }
 		public int EstablishedYear { get; set; }
 
-		public csAlbum MostSoldAlbum { get; set; }
-        public int MostSoldCopies { get; set; }
-
 		public List<csArtist> Members { get; set; }
 		public List<csAlbum>  Albums { get; set; }
 
         public override string ToString() =>
-            $"{Name} with {Members.Count} members was esblished {EstablishedYear} and made {Albums.Count} great albums. " +
-            $"Most sold album was {MostSoldAlbum.Name} with {MostSoldCopies} copies sold."; 
+            $"{Name} with {Members.Count} members was esblished {EstablishedYear} and made {Albums.Count} great albums. ";
 
         public csMusicGroup()
 		{
@@ -53,9 +49,7 @@ namespace MusicModel
                     Name = _name,
                     EstablishedYear = _establishedYear,
                     Members = _members,
-                    Albums = _albums,
-                    MostSoldAlbum = _mostSoldAlbum,
-                    MostSoldCopies = _mostSoldCopies
+                    Albums = _albums
                 };
             }
         }

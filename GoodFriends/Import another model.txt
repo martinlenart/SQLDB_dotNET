@@ -55,20 +55,10 @@ In project DbAppConsole
     - In QueryDatabaseAsync() Update the #region Reading the database using EFC
 
 - recompile should be OK
-
-- In Main() remove the commentation for TestModel(), so it looks like:
-        static void Main(string[] args)
-        {
-            #region run below to test the model only
-
-            TestModel();
-            #endregion
-
 - run DbAppConsole. You should now see output of you model, seeded correctly and written to console
 
 
 
 6. Done.
 
-- Re-comment TestModel() so iyt is //TestModel();
 - Proceed to guide "Create database from model.txt" to generate and populate a databse form your model

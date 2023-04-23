@@ -29,7 +29,8 @@ namespace DbAppConsole
         {
             #region run below to test the model only
 
-            //TestModel();
+            Console.WriteLine($"\nTesting Model...");
+            TestModel();
             #endregion
 
             //ensure connections to the databases
@@ -147,6 +148,9 @@ namespace DbAppConsole
             {
                 #region Reading the database using EFC
                 var _modelList = await db.Friends.ToListAsync();
+                var _pets = await db.Pets.ToListAsync();               //Needed if I want EFC to load the embedded List
+                var _adresses = await db.Adress.ToListAsync();           //Needed if I want EFC to load the embedded List
+
                 #endregion
 
                 WriteModel(_modelList);

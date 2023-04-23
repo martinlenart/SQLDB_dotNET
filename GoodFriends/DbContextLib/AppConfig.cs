@@ -54,6 +54,10 @@ namespace DbContextLib
 
     public sealed class AppConfig
     {
+        #region Set the Application Name
+        public const string ApplicationName = "GoodFriends";
+        #endregion
+
 #if DEBUG
         public const string Appsettingfile = "appsettings.Development.json";
 #else
@@ -63,7 +67,7 @@ namespace DbContextLib
         private static readonly object instanceLock = new();
 
         private static AppConfig _instance = null;
-        private static IConfigurationRoot _configuration = null ;
+        private static IConfigurationRoot _configuration = null;
 
         private static List<DbItem> _dbMigrations = new List<DbItem>();
 
@@ -88,7 +92,7 @@ namespace DbContextLib
                 //Normally LocalApplicationData is a good place to store configuration files.
                 //Copy appsettings.json to the folder in documentPath
                 var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                documentPath = Path.Combine(documentPath, "SQL Databases", "GoodFriends");
+                documentPath = Path.Combine(documentPath, "SQL Databases", ApplicationName);
                 if (!Directory.Exists(documentPath)) Directory.CreateDirectory(documentPath);
 
                 return documentPath;

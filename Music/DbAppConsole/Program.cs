@@ -29,6 +29,7 @@ namespace DbAppConsole
         {
             #region run below to test the model only
 
+            Console.WriteLine($"\nTesting Model...");
             TestModel();
             #endregion
 
@@ -150,6 +151,8 @@ namespace DbAppConsole
             {
                 #region Reading the database using EFC
                 var _modelList = await db.MusicGroups.ToListAsync();
+                var _artists = await db.Artists.ToListAsync();           //Needed if I want EFC to load the embedded List
+                var _albums = await db.Albums.ToListAsync();             //Needed if I want EFC to load the embedded List
                 #endregion
 
                 WriteModel(_modelList);

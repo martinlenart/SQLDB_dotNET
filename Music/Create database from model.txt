@@ -1,18 +1,22 @@
 Create database from model
 ------------------------------
 
-1. Compile and Run DbAppConsole. 
+1. In project DbContextLib AppConfig.cs in class AppConfig set Application Name to Music
+
+2. Ensure your  "appsettings.json" and "appsettings.Development.json" have your Database Connection Strings
+ 
+3. Compile and Run DbAppConsole. 
    Output to the Console should be something like:
 
-Please ensure appsettings.Development.json is copied to /Users/Martin/.local/share/SQL Databases/GoodFriends
+Please ensure appsettings.Development.json is copied to /Users/Martin/.local/share/SQL Databases/<Applcation Name>
 
 
 
-2. Copy "appsettings.json" and "appsettings.Development.json" to the directory indicated in step1 and re-run the program
+4. Copy "appsettings.json" and "appsettings.Development.json" to the directory indicated in step1 and re-run the program
 	- Your should have the Database Connection String as output on the console
    Output to the Console should now be something like:
 
-AppSettings Directory: /Users/Martin/.local/share/SQL Databases/GoodFriends
+AppSettings Directory: /Users/Martin/.local/share/SQL Databases/<Applcation Name>
 Database type: SQLServer
 Connection used: SQLServer-seidowebservice-docker
 
@@ -20,12 +24,12 @@ Error: Database could not be seeded. Ensure the SQLServer database is correctly 
 
 
 
-3. In Windows, open PMC and ensure that the Class Library, DbContextLib, is the default project.
+5. In Windows, open PMC and ensure that the Class Library, DbContextLib, is the default project.
    On Mac open a terminal in DbContextLib directory.
 
 
 
-4. Create Database migrations.
+6. Create Database migrations.
 
 On macOS in the terminal, type below commands. After each migration you will get a success confirmation
 dotnet ef migrations add initial_migration --context SqlServerDbContext --output-dir Migrations/SqlServerMigrations
@@ -40,7 +44,7 @@ add-migration initial_migration -context SqlServerDbContext -outputdir Migration
 
 
 
-5. Commit the migrations to the Database (create the databases).
+7. Commit the migrations to the Database (create the databases).
 
 On macOS in the terminal, type below commands. After each committment you will get a success confirmation
 dotnet ef database update --context SqlServerDbContext
@@ -55,4 +59,4 @@ update-database -context SqlServerDbContext
 
 
 
-6. Run the program and each databases should seeded and queried using Linq
+8. Run the program and each databases should seeded and queried using Linq
