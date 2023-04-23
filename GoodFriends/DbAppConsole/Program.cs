@@ -27,7 +27,10 @@ namespace DbAppConsole
 
         static void Main(string[] args)
         {
-            //TestModelsOnly();
+            #region run below to test the model only
+
+            //TestModel();
+            #endregion
 
             //ensure connections to the databases
             Console.WriteLine($"\nGetting Database connection strings...");
@@ -71,27 +74,6 @@ namespace DbAppConsole
 
         }
 
-        private static void TestModelsOnly()
-        {
-            Console.WriteLine($"\nTesting model only!");
-
-            //Create a list of friends
-            var _goodfriends = new List<csFriend>();
-            for (int c = 0; c < 20; c++)
-            {
-                _goodfriends.Add(csFriend.Factory.CreateRandom());
-            }
-
-            foreach (var friend in _goodfriends)
-            {
-                Console.WriteLine(friend);
-            }
-
-            Console.WriteLine($"NrOfFriends: {_goodfriends.Count()}");
-            Console.WriteLine($"NrOfFriends without any pets: {_goodfriends.Count(f => f.Pets == null)}");
-            Console.WriteLine($"NrOfFriends without an adress: {_goodfriends.Count(f => f.Adress == null)}");
-        }
-
         private static DbContextOptionsBuilder<DbContextLib.MainDbContext> CreateDbContextOptions(DbItem db)
         {
             //Ensures appsettings.json is in the right location and DbContext created
@@ -110,21 +92,50 @@ namespace DbAppConsole
         }
 
 
+        private static void TestModel()
+        {
+            var _modelList = SeedModel();
+            WriteModel(_modelList);
+        }
+
+        #region Replaced by new model methods
+        private static void WriteModel(List<csFriend> _modelList)
+        {
+            foreach (var friend in _modelList)
+            {
+                Console.WriteLine(friend);
+            }
+
+            Console.WriteLine($"NrOfFriends: {_modelList.Count()}");
+            Console.WriteLine($"NrOfFriends without any pets: {_modelList.Count(f => f.Pets == null)}");
+            Console.WriteLine($"NrOfFriends without an adress: {_modelList.Count(f => f.Adress == null)}");
+        }
+
+        private static List<csFriend> SeedModel()
+        {
+            //Create a list of friends
+            var _goodfriends = new List<csFriend>();
+            for (int c = 0; c < 20; c++)
+            {
+                _goodfriends.Add(csFriend.Factory.CreateRandom());
+            }
+            return _goodfriends;
+        }
+        #endregion
+
         private static void SeedDataBase()
         {
             using (var db = new MainDbContext(_optionsBuilder.Options))
             {
-                //Create a list of friends
-                var _goodfriends = new List<csFriend>();
-                for (int c = 0; c < 20; c++)
-                {
-                    _goodfriends.Add(csFriend.Factory.CreateRandom());
-                }
+                var _modelList = SeedModel();
 
-                foreach (var friend in _goodfriends)
+                #region Seeding the database using EFC
+                foreach (var _friend in _modelList)
                 {
-                    db.Friends.Add(friend);
+                    db.Friends.Add(_friend);
                 }
+                #endregion
+
                 db.SaveChanges();
             }
         }
@@ -134,13 +145,11 @@ namespace DbAppConsole
             Console.WriteLine("--------------");
             using (var db = new MainDbContext(_optionsBuilder.Options))
             {
-                var friends = await db.Friends.CountAsync();
-                var friendsNoPet = await db.Friends.CountAsync(f => f.Pets == null);
-                var friendsNoAdress = await db.Friends.CountAsync(f => f.Adress == null);
+                #region Reading the database using EFC
+                var _modelList = await db.Friends.ToListAsync();
+                #endregion
 
-                Console.WriteLine($"NrOfFriends: {friends}");
-                Console.WriteLine($"NrOfFriends without any pets: {friendsNoPet}");
-                Console.WriteLine($"NrOfFriends without an adress: {friendsNoAdress}");
+                WriteModel(_modelList);
             }
         }
     }

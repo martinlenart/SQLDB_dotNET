@@ -1,0 +1,74 @@
+﻿Guide to Import another model
+------------------------------
+
+1. Import you models
+
+In project DbModelsLib,
+  - replace file csRandomData.cs from your source model, change namespace to DbModelsLib
+  - recompile should be OK
+  - add files csAlbum.cs, csArtist.cs, csMusicGroup.cs from your source model, change namespaces to DbModelsLib
+  - recompile should be OK
+
+
+
+2. Set you primary Keys in the models
+
+In project DbModelsLib
+  - add AlbumId, ArtistId, MusicGroupId, to your respective model.
+  - Annotate each primary key with [Key]
+  - recompile should be OK
+
+
+
+3. Setup EFC to use your new models
+
+In project DbContextLib class MainDbContext.cs
+  - replace existing All DbSet<> models with you new models. That is MainDbContext should now look like:
+
+    public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
+    {
+        public DbSet<csMusicGroup> MusicGroups { get; set; }
+        public DbSet<csArtist> Artists { get; set; }
+        public DbSet<csAlbum> Albums { get; set; }
+
+        public MainDbContext() { }
+        public MainDbContext(DbContextOptions options) : base(options)
+        { }
+    }
+
+   - recompile should now indicate errors in program.cs. This is ok
+
+
+4. Remove your old model
+
+In project DbModelsLib
+   - Delete csFriend, csPet, Adress
+   - recompile should now indicate errors in program.cs. This is ok
+
+
+
+5. Modify Application to use your new models
+
+In project DbAppConsole
+    - Replace method WriteModel() and SeedModel() with the method from your Models Application
+    - In SeedingDatabase() Update the #region Seeding the database using EFC
+    - In QueryDatabaseAsync() Update the #region Reading the database using EFC
+
+- recompile should be OK
+
+- In Main() remove the commentation for TestModel(), so it looks like:
+        static void Main(string[] args)
+        {
+            #region run below to test the model only
+
+            TestModel();
+            #endregion
+
+- run DbAppConsole. You should now see output of you model, seeded correctly and written to console
+
+
+
+6. Done.
+
+- Re-comment TestModel() so iyt is //TestModel();
+- Proceed to guide "Create database from model.txt" to generate and populate a databse form your model
