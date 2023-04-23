@@ -33,7 +33,7 @@ dotnet ef migrations add initial_migration --context PostgresDbContext --output-
 dotnet ef migrations add initial_migration --context SqliteDbContext --output-dir Migrations/SqliteMigrations
 
 On Windows in the PCM terminal, type below commands. After each migration you will get a success confirmation
-add-migration initial_migration -context SqlServerDbContext -output-dir Migrations/SqlServerMigrations
+add-migration initial_migration -context SqlServerDbContext -outputdir Migrations/SqlServerMigrations
 
 
 
@@ -48,7 +48,7 @@ dotnet ef database update --context PostgresDbContext
 dotnet ef database update --context SqliteDbContext
 
 On Windows in the PCM terminal, type below commands. After each migration you will get a success confirmation
-update-database -context SqlServerDbContext -output-dir Migrations/SqlServerMigrations
+update-database -context SqlServerDbContext
 
 
 
