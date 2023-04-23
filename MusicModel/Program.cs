@@ -3,16 +3,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        TestModel();
-
-    }
-    private static void TestModel()
-    {
-        List<csMusicGroup> _greatMusicBands = SeedModel();
-
-        WriteModel(_greatMusicBands);
+        var _modelList = SeedModel();
+        WriteModel(_modelList);
     }
 
+    #region Replaced by new model methods
     private static void WriteModel(List<csMusicGroup> _greatMusicBands)
     {
         foreach (var band in _greatMusicBands)
@@ -36,5 +31,6 @@ class Program
 
         return _greatMusicBands;
     }
+    #endregion
 }
 
