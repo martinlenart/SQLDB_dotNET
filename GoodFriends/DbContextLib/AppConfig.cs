@@ -1,6 +1,4 @@
-﻿#define IsConsoleApp
-
-using System;
+﻿using System;
 using System.Web;
 using System.Collections.Generic;
 using System.IO;
@@ -10,8 +8,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Options;
 
 namespace DbContextLib
@@ -67,51 +63,19 @@ namespace DbContextLib
         private static readonly object instanceLock = new();
 
         private static AppConfig _instance = null;
-        private static IConfigurationRoot _configuration;
+        private static IConfigurationRoot _configuration = null ;
 
         private static List<DbItem> _dbMigrations = new List<DbItem>();
 
         private AppConfig()
         {
-#if DEBUG
             //Lets get the credentials access Azure KV and set them as Environment variables
             //During Development this will come from User Secrets,
             //After Deployment it will come from appsettings.json
 
-            var _azureConf = new ConfigurationBuilder()
-                                .SetBasePath(AppSettingsDirectory)
-                                .AddJsonFile(Appsettingfile, optional: true, reloadOnChange: true)
-                                .AddUserSecrets("3d2b8454-7957-4457-9167-d64aaaedb8d3")
-                                .Build();
-
-            // Access the Azure KeyVault
-            Environment.SetEnvironmentVariable("AZURE_KeyVaultUri", _azureConf["AZURE_KeyVaultUri"]);
-            Environment.SetEnvironmentVariable("AZURE_CLIENT_SECRET", _azureConf["AZURE_CLIENT_SECRET"]);
-            Environment.SetEnvironmentVariable("AZURE_CLIENT_ID", _azureConf["AZURE_CLIENT_ID"]);
-            Environment.SetEnvironmentVariable("AZURE_TENANT_ID", _azureConf["AZURE_TENANT_ID"]);
-#endif
-            var _kvuri = Environment.GetEnvironmentVariable("AZURE_KeyVaultUri");
-            //Get the user-secrets from Azure Key Vault
-
-            var client = new SecretClient(new Uri(_kvuri), new DefaultAzureCredential(
-                new DefaultAzureCredentialOptions { AdditionallyAllowedTenants = { "*" } }));
-
-            //Get user-secrets from AKV and flatten it into a Dictionary<string, string>
-            var secret = client.GetSecret("user-secrets1");
-            var message = secret.Value.Value;
-            var userSecretsAKV = JsonFlatToDictionary(message);
-
-            //Create final ConfigurationRoot which includes also AzureKeyVault
             var builder = new ConfigurationBuilder()
-
                                 .SetBasePath(AppSettingsDirectory)
-                                .AddJsonFile(Appsettingfile, optional: true, reloadOnChange: true)
-#if DEBUG
-                                //Shared on one developer machine
-                                .AddUserSecrets("3d2b8454-7957-4457-9167-d64aaaedb8d3");
-#endif
-            //super secrets managed by Azure Key Vault
-            //.AddInMemoryCollection(userSecretsAKV);
+                                .AddJsonFile(Appsettingfile, optional: true, reloadOnChange: true);
 
             _configuration = builder.Build();
             _configuration.Bind("DbMigrations", _dbMigrations);  //Need the NuGet package Microsoft.Extensions.Configuration.Binder
@@ -121,17 +85,12 @@ namespace DbContextLib
         {
             get
             {
-#if IsConsoleApp
-
                 //Normally LocalApplicationData is a good place to store configuration files.
                 //Copy appsettings.json to the folder in documentPath
                 var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 documentPath = Path.Combine(documentPath, "SQL Databases", "GoodFriends");
                 if (!Directory.Exists(documentPath)) Directory.CreateDirectory(documentPath);
-#else
-                //In an ASP.NET Core app the appsettings.json is in the root directory of the App itself
-                var documentPath = Directory.GetCurrentDirectory();
-#endif
+
                 return documentPath;
             }
         }
@@ -152,21 +111,6 @@ namespace DbContextLib
                 }
             }
         }
-
-        private static Dictionary<string, string> JsonFlatToDictionary(string json)
-        {
-            IEnumerable<(string Path, JsonProperty P)> GetLeaves(string path, JsonProperty p)
-                => p.Value.ValueKind != JsonValueKind.Object
-                    ? new[] { (Path: path == null ? p.Name : path + ":" + p.Name, p) }
-                    : p.Value.EnumerateObject().SelectMany(child => GetLeaves(path == null ? p.Name : path + ":" + p.Name, child));
-
-            using (JsonDocument document = JsonDocument.Parse(json)) // Optional JsonDocumentOptions options
-                return document.RootElement.EnumerateObject()
-                    .SelectMany(p => GetLeaves(null, p))
-                    .ToDictionary(k => k.Path, v => v.P.Value.Clone().ToString()); //Clone so that we can use the values outside of using
-        }
-
-        public static string SecretMessage => ConfigurationRoot["SecretMessage"];
 
         public static List<DbItem> DbMigrations
         {

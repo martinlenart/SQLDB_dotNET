@@ -19,6 +19,8 @@ namespace DbAppConsole
             collection.ToList().ForEach(item => Console.WriteLine(item));
         }
     }
+
+
     class Program
     {
         private static DbContextOptionsBuilder<DbContextLib.MainDbContext> _optionsBuilder;
@@ -28,16 +30,18 @@ namespace DbAppConsole
             //TestModelsOnly();
 
             //ensure connections to the databases
+            Console.WriteLine($"\nGetting Database connection strings...");
             if (!AppConfig.AppSettingsExist)
             {
                 Console.WriteLine($"Cannot find {AppConfig.Appsettingfile}");
                 Console.WriteLine($"Please ensure {AppConfig.Appsettingfile} is copied to {AppConfig.AppSettingsDirectory}");
                 return;
-
             }
+
 
             foreach (var db in AppConfig.DbMigrations)
             {
+                Console.WriteLine($"\nConnecting to database...");
                 _optionsBuilder = CreateDbContextOptions(db);
                 if (_optionsBuilder == null)
                 {
@@ -47,6 +51,7 @@ namespace DbAppConsole
                     return;
                 }
 
+                Console.WriteLine($"\nSeeding database...");
                 try
                 {
                     SeedDataBase();
@@ -57,6 +62,7 @@ namespace DbAppConsole
                     return;
                 }
 
+                Console.WriteLine("\nQuery database...");
                 QueryDatabaseAsync().Wait();
             }
 
@@ -67,6 +73,8 @@ namespace DbAppConsole
 
         private static void TestModelsOnly()
         {
+            Console.WriteLine($"\nTesting model only!");
+
             //Create a list of friends
             var _goodfriends = new List<csFriend>();
             for (int c = 0; c < 20; c++)
@@ -87,8 +95,7 @@ namespace DbAppConsole
         private static DbContextOptionsBuilder<DbContextLib.MainDbContext> CreateDbContextOptions(DbItem db)
         {
             //Ensures appsettings.json is in the right location and DbContext created
-            Console.WriteLine($"\n\n\n\n-------------------- Testing Database -----------------------------------");
-            Console.WriteLine($"\nAppSettings Directory: {AppConfig.AppSettingsDirectory}");
+            Console.WriteLine($"AppSettings Directory: {AppConfig.AppSettingsDirectory}");
 
             var connectionString = db.DbConnection;
             if (!string.IsNullOrEmpty(connectionString))
@@ -124,7 +131,6 @@ namespace DbAppConsole
 
         private static async Task QueryDatabaseAsync()
         {
-            Console.WriteLine("\n\nQuery Database");
             Console.WriteLine("--------------");
             using (var db = new MainDbContext(_optionsBuilder.Options))
             {
