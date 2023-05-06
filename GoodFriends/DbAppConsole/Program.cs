@@ -30,8 +30,9 @@ namespace DbAppConsole
             #region run below to test the model only
 
             Console.WriteLine($"\nTesting Model...");
-            TestModel();
+            //TestModel();
             #endregion
+
 
             //ensure connections to the databases
             Console.WriteLine($"\nGetting Database connection strings...");
@@ -116,7 +117,7 @@ namespace DbAppConsole
         {
             //Create a list of friends
             var _goodfriends = new List<csFriend>();
-            for (int c = 0; c < 20; c++)
+            for (int c = 0; c < 5000; c++)
             {
                 _goodfriends.Add(csFriend.Factory.CreateRandom());
             }

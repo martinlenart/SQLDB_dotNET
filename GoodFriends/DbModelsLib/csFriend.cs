@@ -15,7 +15,9 @@ namespace DbModelsLib
         public string Email { get; set; }
         public csAdress Adress { get; set; } = null;    //null = no adress        
 
-        public List<csPet> Pets { get; set; } = null;      //null = no pets 
+        public List<csPet> Pets { get; set; } = null;      //null = no pets
+
+        public DateTime? Birthday { get; set; } = null;
 
         public string FullName => $"{FirstName} {LastName}";
         public override string ToString()
@@ -34,6 +36,10 @@ namespace DbModelsLib
                 {
                     sRet += $"{pet}, ";
                 }
+            }
+            if (Birthday != null)
+            {
+                sRet += $". Has birthday on {Birthday:D}";
             }
             return sRet;
         }
@@ -64,8 +70,9 @@ namespace DbModelsLib
                     FirstName = fn,
                     LastName = ln,
                     Email = rnd.Email(fn, ln),
-                    Adress = (rnd.Bool) ?csAdress.Factory.CreateRandom() :null,
-                    Pets = (_pets.Count > 0) ? _pets : null  
+                    Adress = (rnd.Bool) ? csAdress.Factory.CreateRandom() : null,
+                    Pets = (_pets.Count > 0) ? _pets : null,
+                    Birthday = (rnd.Bool) ? rnd.getDateTime(1970, 2000) : null
                 };
             }
         }
