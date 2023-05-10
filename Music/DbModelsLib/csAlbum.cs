@@ -11,6 +11,7 @@ namespace DbModelsLib
 
         public string Name { get; set; }
 		public int ReleaseYear { get; set; }
+        public int CopiesSold { get; set; }
 
         public csAlbum()
 		{
@@ -24,11 +25,13 @@ namespace DbModelsLib
 
                 var _name = rnd.MusicBand;
                 var _releaseYear = rnd.Next(1970, 1990);
+                var _copiesSold = rnd.Next(50_000, 50_000_000);
 
                 return new csAlbum
                 {
                     Name = _name,
-                    ReleaseYear = _releaseYear
+                    ReleaseYear = _releaseYear,
+                    CopiesSold = _copiesSold
                 };
             }
         }

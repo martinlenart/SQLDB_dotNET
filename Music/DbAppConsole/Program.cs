@@ -115,9 +115,9 @@ namespace DbAppConsole
 
         private static List<csMusicGroup> SeedModel()
         {
-            //Create a list of 20 great bands
+            //Create a list of 200 great bands
             var _greatMusicBands = new List<csMusicGroup>();
-            for (int c = 0; c < 20; c++)
+            for (int c = 0; c < 200; c++)
             {
                 _greatMusicBands.Add(csMusicGroup.Factory.CreateRandom());
             }

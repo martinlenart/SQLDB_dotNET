@@ -33,14 +33,14 @@ namespace DbModelsLib
 
                 //Create between 3 and 8 Members
                 var _members = new List<csArtist>();
-                for (int i = 3; i < rnd.Next(4, 9); i++)
+                for (int i = 0; i < rnd.Next(4, 9); i++)
                 {
                     _members.Add(csArtist.Factory.CreateRandom());
                 }
 
-                //Create between 5 and 16 Albums
+                //Create between 5 and 20 Albums
                 var _albums = new List<csAlbum>();
-                for (int i = 5; i < rnd.Next(6, 17); i++)
+                for (int i = 0; i < rnd.Next(5, 21); i++)
                 {
                     _albums.Add(csAlbum.Factory.CreateRandom());
                 }

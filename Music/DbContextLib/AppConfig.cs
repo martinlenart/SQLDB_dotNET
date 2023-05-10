@@ -12,46 +12,6 @@ using Microsoft.Extensions.Options;
 
 namespace DbContextLib
 {
-    public class DbItem
-    {
-        public string DbType { get; set; }
-        public string DbConnection { get; set; }
-        public string DbConnectionString => AppConfig.ConfigurationRoot.GetConnectionString(DbConnection);
-
-        public DbContextOptionsBuilder<DbContextLib.MainDbContext> DbContext
-        {
-            get
-            {
-                var _optionsBuilder = new DbContextOptionsBuilder<DbContextLib.MainDbContext>();
-
-                if (DbType == "SQLServer")
-                {
-                    _optionsBuilder.UseSqlServer(DbConnectionString);
-                    return _optionsBuilder;
-                }
-                else if (DbType == "MariaDb")
-                {
-                    _optionsBuilder.UseMySql(DbConnectionString, ServerVersion.AutoDetect(DbConnectionString));
-                    return _optionsBuilder;
-                }
-                else if (DbType == "Postgres")
-                {
-                    _optionsBuilder.UseNpgsql(DbConnectionString);
-                    return _optionsBuilder;
-                }
-                else if (DbType == "SQLite")
-                {
-                    _optionsBuilder.UseSqlite(DbConnectionString);
-                    return _optionsBuilder;
-                }
-
-                //unknown database type
-                throw new InvalidDataException($"Database type {DbType} does not exist");
-            }
-        }
-
-    }
-
     public sealed class AppConfig
     {
         #region Set the Application Name
@@ -130,5 +90,45 @@ namespace DbContextLib
                 }
             }
         }
+    }
+
+    public class DbItem
+    {
+        public string DbType { get; set; }
+        public string DbConnection { get; set; }
+        public string DbConnectionString => AppConfig.ConfigurationRoot.GetConnectionString(DbConnection);
+
+        public DbContextOptionsBuilder<DbContextLib.MainDbContext> DbContext
+        {
+            get
+            {
+                var _optionsBuilder = new DbContextOptionsBuilder<DbContextLib.MainDbContext>();
+
+                if (DbType == "SQLServer")
+                {
+                    _optionsBuilder.UseSqlServer(DbConnectionString);
+                    return _optionsBuilder;
+                }
+                else if (DbType == "MariaDb")
+                {
+                    _optionsBuilder.UseMySql(DbConnectionString, ServerVersion.AutoDetect(DbConnectionString));
+                    return _optionsBuilder;
+                }
+                else if (DbType == "Postgres")
+                {
+                    _optionsBuilder.UseNpgsql(DbConnectionString);
+                    return _optionsBuilder;
+                }
+                else if (DbType == "SQLite")
+                {
+                    _optionsBuilder.UseSqlite(DbConnectionString);
+                    return _optionsBuilder;
+                }
+
+                //unknown database type
+                throw new InvalidDataException($"Database type {DbType} does not exist");
+            }
+        }
+
     }
 }
