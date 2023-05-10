@@ -12,6 +12,8 @@ namespace DbModelsLib
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public DateTime? BirthDay { get; set; }
+
         public csArtist()
 		{
 		}
@@ -24,11 +26,13 @@ namespace DbModelsLib
 
                 var fn = rnd.FirstName;
                 var ln = rnd.LastName;
+                DateTime? _birthday = (rnd.Bool)?rnd.getDateTime(1940, 1990) :null; 
 
                 return new csArtist
                 {
                     FirstName = fn,
-                    LastName = ln
+                    LastName = ln,
+                    BirthDay = _birthday
                 };
             }
         }
