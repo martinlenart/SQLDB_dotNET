@@ -11,7 +11,7 @@ namespace DbModelsLib
 
         public string Name { get; set; }
 		public int ReleaseYear { get; set; }
-        public int CopiesSold { get; set; }
+        public long CopiesSold { get; set; }
 
         public csAlbum()
 		{
