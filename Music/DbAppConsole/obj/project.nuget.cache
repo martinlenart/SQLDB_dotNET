@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "D5OIxTzoHVFoGs7Mg/oaaPWb8TGE6J2engbo2PITup6hqq5D5R3/tAX8Ce/Tv9v3XSHZfUbZAjKk3rRrKRlV1g==",
+  "dgSpecHash": "kVvsA5A+TE3SvQanMBPSyZ7dtCa8BsWpDggK6qQ/ln0sOwvS1b9P7viViFG0NyxHbMGqFUSo9xpFYYZvl0hu+g==",
   "success": true,
   "projectFilePath": "/Users/Martin/Development/Projects/SQL_Databases/SQLDB_dotNET/Music/DbAppConsole/DbAppConsole.csproj",
   "expectedPackageFiles": [
@@ -53,8 +53,8 @@
     "/Users/Martin/.nuget/packages/microsoft.win32.systemevents/5.0.0/microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "/Users/Martin/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/Martin/.nuget/packages/mysqlconnector/2.2.5/mysqlconnector.2.2.5.nupkg.sha512",
-    "/Users/Martin/.nuget/packages/npgsql/7.0.2/npgsql.7.0.2.nupkg.sha512",
-    "/Users/Martin/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.3/npgsql.entityframeworkcore.postgresql.7.0.3.nupkg.sha512",
+    "/Users/Martin/.nuget/packages/npgsql/7.0.4/npgsql.7.0.4.nupkg.sha512",
+    "/Users/Martin/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.4/npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",
     "/Users/Martin/.nuget/packages/pomelo.entityframeworkcore.mysql/7.0.0/pomelo.entityframeworkcore.mysql.7.0.0.nupkg.sha512",
     "/Users/Martin/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.4/sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
     "/Users/Martin/.nuget/packages/sqlitepclraw.core/2.1.4/sqlitepclraw.core.2.1.4.nupkg.sha512",
