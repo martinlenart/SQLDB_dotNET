@@ -1,14 +1,11 @@
 ﻿<Properties StartupConfiguration="{585D89DA-255A-4C58-BFC7-AC1CCF1BBD2F}|Default">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.DbAppConsole PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Create database from model.txt">
     <Files>
-      <File FileName="Create database from model.txt" Line="50" Column="1" />
+      <File FileName="Create database from model.txt" Line="30" Column="1" />
       <File FileName="DbContextLib/appsettings.Development.json" />
-      <File FileName="DbModelsLib/csArtist.cs" />
-      <File FileName="DbModelsLib/csAlbum.cs" Line="15" Column="1" />
+      <File FileName="DbModelsLib/csArtist.cs" Line="29" Column="26" />
+      <File FileName="DbModelsLib/csAlbum.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,7 +19,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
