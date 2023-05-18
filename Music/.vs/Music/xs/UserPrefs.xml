@@ -1,28 +1,27 @@
 ﻿<Properties StartupConfiguration="{585D89DA-255A-4C58-BFC7-AC1CCF1BBD2F}|Default">
-  <MonoDevelop.Ide.ItemProperties.DbAppConsole PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Create database from model.txt">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="DbAppConsole/Program.cs">
     <Files>
-      <File FileName="Create database from model.txt" Line="30" Column="1" />
-      <File FileName="DbContextLib/appsettings.Development.json" />
-      <File FileName="DbModelsLib/csArtist.cs" Line="29" Column="26" />
-      <File FileName="DbModelsLib/csAlbum.cs" />
+      <File FileName="DbAppConsole/Program.cs" Line="175" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Music" expanded="True">
             <Node name="Solution Items" expanded="True" />
-            <Node name="DbContextLib" expanded="True" />
-            <Node name="DbModelsLib" expanded="True" />
+            <Node name="DbAppConsole" expanded="True" />
+            <Node name="DbModelsLib" expanded="True">
+              <Node name="csAlbum.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.DbAppConsole PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

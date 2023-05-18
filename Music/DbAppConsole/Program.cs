@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using DbContextLib;
 using DbModelsLib;
 using System.Data.Common;
+using Microsoft.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Data;
 
 namespace DbAppConsole
 {
@@ -30,7 +33,7 @@ namespace DbAppConsole
             #region run below to test the model only
 
             Console.WriteLine($"\nTesting Model...");
-            TestModel();
+            //TestModel();
             #endregion
 
             //ensure connections to the databases
@@ -58,7 +61,7 @@ namespace DbAppConsole
                 Console.WriteLine($"\nSeeding database...");
                 try
                 {
-                    SeedDataBase();
+                    //SeedDataBase();
                 }
                 catch (Exception ex)
                 {
@@ -68,6 +71,12 @@ namespace DbAppConsole
 
                 Console.WriteLine("\nQuery database...");
                 QueryDatabaseAsync().Wait();
+
+                Console.WriteLine("\nAccess database...");
+                AccessDatabaseStoredProcedureAsync().Wait();
+
+                //Console.WriteLine("\nSQL Injection...");
+                //SQLInjectionAsync().Wait();
             }
 
             Console.WriteLine("\nPress any key to terminate");
@@ -159,5 +168,91 @@ namespace DbAppConsole
             }
         }
         #endregion
+
+
+        private static async Task AccessDatabaseStoredProcedureAsync()
+        {
+            Console.WriteLine("--------------");
+            try
+            {
+                using (var db = new MainDbContext(_optionsBuilder.Options))
+                using (var cmd1 = db.Database.GetDbConnection().CreateCommand())
+                using (var cmd2 = db.Database.GetDbConnection().CreateCommand())
+                using (var cmd3 = db.Database.GetDbConnection().CreateCommand())
+                using (var cmd4 = db.Database.GetDbConnection().CreateCommand())
+                {
+                    cmd1.CommandType = cmd2.CommandType = cmd3.CommandType = cmd4.CommandType = CommandType.StoredProcedure;
+
+                    //MusicGroup
+                    cmd1.CommandText = "dbo.usp_InsertMusicGroup";
+                    cmd1.Parameters.Add(new SqlParameter("Name", "The Doe Family"));
+                    cmd1.Parameters.Add(new SqlParameter("EstablishedYear", 2023));
+                    int i = cmd1.Parameters.Add(new SqlParameter("InsertedMusicGroupId", SqlDbType.UniqueIdentifier) { Direction = ParameterDirection.Output });
+
+                    db.Database.OpenConnection();
+                    await cmd1.ExecuteScalarAsync();
+                    Guid musicGroupId = (Guid) cmd1.Parameters[i].Value;
+                    Console.WriteLine($"Inserted MusicGroup {musicGroupId}");
+
+
+                    //Artis1
+                    cmd2.CommandText = cmd3.CommandText = cmd4.CommandText = "dbo.usp_InsertArtist";
+                    cmd2.Parameters.Add(new SqlParameter("FirstName", "John"));
+                    cmd2.Parameters.Add(new SqlParameter("LastName", "Doe"));
+                    cmd2.Parameters.Add(new SqlParameter("MusicGroupId", musicGroupId));
+                    i = cmd2.Parameters.Add(new SqlParameter("InsertedArtistId", SqlDbType.UniqueIdentifier) { Direction = ParameterDirection.Output });
+
+                    await cmd2.ExecuteScalarAsync();
+                    Guid artist1 = (Guid)cmd2.Parameters[i].Value;
+                    Console.WriteLine($"Inserted Artist {artist1}");
+
+                    //Artist2
+                    cmd3.Parameters.Add(new SqlParameter("FirstName", "Mary"));
+                    cmd3.Parameters.Add(new SqlParameter("LastName", "Doe"));
+                    cmd3.Parameters.Add(new SqlParameter("MusicGroupId", musicGroupId));
+                    i = cmd3.Parameters.Add(new SqlParameter("InsertedArtistId", SqlDbType.UniqueIdentifier) { Direction = ParameterDirection.Output });
+
+                    await cmd3.ExecuteScalarAsync();
+                    Guid artist2 = (Guid)cmd3.Parameters[i].Value;
+                    Console.WriteLine($"Inserted Artist {artist2}");
+
+                    //Artist3
+                    cmd4.Parameters.Add(new SqlParameter("FirstName", "Kim"));
+                    cmd4.Parameters.Add(new SqlParameter("LastName", "Doe"));
+                    cmd4.Parameters.Add(new SqlParameter("MusicGroupId", musicGroupId));
+                    i = cmd4.Parameters.Add(new SqlParameter("InsertedArtistId", SqlDbType.UniqueIdentifier) { Direction = ParameterDirection.Output });
+
+                    await cmd4.ExecuteScalarAsync();
+                    Guid artist3 = (Guid)cmd4.Parameters[i].Value;
+                    Console.WriteLine($"Inserted Artist {artist3}");
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static async Task SQLInjectionAsync()
+        {
+            Console.WriteLine("--------------");
+            try
+            {
+                using (var db = new MainDbContext(_optionsBuilder.Options))
+                {
+
+                    db.Database.OpenConnection();
+                    await db.Database.ExecuteSqlAsync($"UPDATE dbo.Artists SET LastName = 'Valdemart' WHERE LastName = 'Voldemort';");
+                    //await db.Database.ExecuteSqlAsync($"UPDATE dbo.Artists SET LastName = 'Voldemort' WHERE LastName = 'Valdemart';");
+                    Console.WriteLine("Injection attack complete...");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }

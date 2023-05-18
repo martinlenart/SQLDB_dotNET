@@ -13,8 +13,8 @@ namespace DbModelsLib
         public string Name { get; set; }
 		public int EstablishedYear { get; set; }
 
-		public List<csArtist> Members { get; set; }
-		public List<csAlbum>  Albums { get; set; }
+        public List<csArtist> Members { get; set; } = new List<csArtist>();     //for EFC Code first
+        public List<csAlbum> Albums { get; set; } = new List<csAlbum>();        //for EFC Code first
 
         public override string ToString() =>
             $"{Name} with {Members.Count} members was esblished {EstablishedYear} and made {Albums.Count} great albums. ";
