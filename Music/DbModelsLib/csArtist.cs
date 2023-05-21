@@ -4,7 +4,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DbModelsLib
 {
-	public class csArtist
+    //used for view results
+    public class dtoArtist
+    {
+        [Key]       // for EFC Code first
+        public Guid ArtistId { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public DateTime? BirthDay { get; set; }
+    }
+
+    //used to build table
+    public class csArtist
 	{
         [Key]       // for EFC Code first
         public Guid ArtistId { get; set; }

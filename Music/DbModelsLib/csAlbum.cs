@@ -4,7 +4,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DbModelsLib
 {
-	public class csAlbum
+    //used for view results
+    public class dtoAlbum
+    {
+        [Key]       // for EFC Code first
+        public Guid AlbumId { get; set; }
+
+        public string Name { get; set; }
+        public int ReleaseYear { get; set; }
+        public long CopiesSold { get; set; }
+    }
+
+    //used to build table
+    public class csAlbum
 	{
         [Key]       // for EFC Code first
         public Guid AlbumId { get; set; }

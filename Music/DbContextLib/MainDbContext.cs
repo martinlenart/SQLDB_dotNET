@@ -13,9 +13,28 @@ namespace DbContextLib
         public DbSet<csArtist> Artists { get; set; }
         public DbSet<csAlbum> Albums { get; set; }
 
+        
+        #region model the Views
+        public DbSet<dtoMusicGroup> vwMusicGroups { get; set; }
+        public DbSet<dtoArtist> vwArtists { get; set; }
+        public DbSet<dtoAlbum> vwAlbums { get; set; }
+        #endregion
+        
         public MainDbContext() { }
         public MainDbContext(DbContextOptions options) : base(options)
         { }
+
+        
+        #region model the Views
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<dtoMusicGroup>().ToView("vwMusicGroups","usr");
+            modelBuilder.Entity<dtoArtist>().ToView("vwArtists", "usr");
+            modelBuilder.Entity<dtoAlbum>().ToView("vwAlbums", "usr");
+            base.OnModelCreating(modelBuilder);
+        }
+        #endregion
+        
     }
 
 

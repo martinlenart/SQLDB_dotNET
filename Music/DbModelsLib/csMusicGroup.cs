@@ -5,7 +5,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DbModelsLib
 {
-	public class csMusicGroup
+    //used for view results
+    public class dtoMusicGroup
+    {
+        [Key]       // for EFC Code first
+        public Guid MusicGroupId { get; set; }
+
+        public string Name { get; set; }
+        public int EstablishedYear { get; set; }
+    }
+
+    //used to build table
+    public class csMusicGroup
 	{
         [Key]       // for EFC Code first
         public Guid MusicGroupId { get; set; }

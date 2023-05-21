@@ -69,11 +69,14 @@ namespace DbAppConsole
                     return;
                 }
 
-                Console.WriteLine("\nQuery database...");
-                QueryDatabaseAsync().Wait();
+                Console.WriteLine("\nAccess Tables...");
+                AccessTablesAsync().Wait();
 
-                Console.WriteLine("\nAccess database...");
-                AccessDatabaseStoredProcedureAsync().Wait();
+                Console.WriteLine("\nAccess StoredProcedure...");
+                AccessStoredProcedureAsync().Wait();
+
+                Console.WriteLine("\nAccess Views...");
+                AccessViewsAsync().Wait();
 
                 //Console.WriteLine("\nSQL Injection...");
                 //SQLInjectionAsync().Wait();
@@ -118,7 +121,7 @@ namespace DbAppConsole
             }
 
             Console.WriteLine($"Nr of great music bands: {_greatMusicBands.Count()}");
-            Console.WriteLine($"Total nr of albums produced: {_greatMusicBands.Sum(b => b.Albums.Count)}");
+            Console.WriteLine($"Total nr of albums: {_greatMusicBands.Sum(b => b.Albums.Count)}");
             Console.WriteLine($"Total nr of music band members: {_greatMusicBands.Sum(b => b.Members.Count)}");
         }
 
@@ -153,24 +156,57 @@ namespace DbAppConsole
             }
         }
 
-        private static async Task QueryDatabaseAsync()
+        private static async Task AccessTablesAsync()
         {
-            Console.WriteLine("--------------");
-            using (var db = new MainDbContext(_optionsBuilder.Options))
+            try
             {
-                #region Reading the database using EFC
-                var _modelList = await db.MusicGroups.ToListAsync();
-                var _artists = await db.Artists.ToListAsync();           //Needed if I want EFC to load the embedded List
-                var _albums = await db.Albums.ToListAsync();             //Needed if I want EFC to load the embedded List
-                #endregion
+                Console.WriteLine("--------------");
+                using (var db = new MainDbContext(_optionsBuilder.Options))
+                {
+                    #region Reading the database using EFC
+                    var _modelList = await db.MusicGroups.ToListAsync();
+                    var _artists = await db.Artists.ToListAsync();           //Needed if I want EFC to load the embedded List
+                    var _albums = await db.Albums.ToListAsync();             //Needed if I want EFC to load the embedded List
+                    #endregion
 
-                WriteModel(_modelList);
+                    WriteModel(_modelList);
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
         #endregion
 
 
-        private static async Task AccessDatabaseStoredProcedureAsync()
+        private static async Task AccessViewsAsync()
+        {
+            try
+            {
+                Console.WriteLine("--------------");
+                using (var db = new MainDbContext(_optionsBuilder.Options))
+                {
+
+                    var _vwMusicGroups = await db.vwMusicGroups.ToListAsync();
+                    var _vwArtists = await db.vwArtists.ToListAsync();
+                    var _vwAlbums = await db.vwAlbums.ToListAsync();
+
+                    Console.WriteLine($"Nr of great music bands: {_vwMusicGroups.Count}");
+                    Console.WriteLine($"Total nr of albums: {_vwAlbums.Count}");
+                    Console.WriteLine($"Total nr of music band members: {_vwArtists.Count}");
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+
+        private static async Task AccessStoredProcedureAsync()
         {
             Console.WriteLine("--------------");
             try
@@ -184,7 +220,7 @@ namespace DbAppConsole
                     cmd1.CommandType = cmd2.CommandType = cmd3.CommandType = cmd4.CommandType = CommandType.StoredProcedure;
 
                     //MusicGroup
-                    cmd1.CommandText = "dbo.usp_InsertMusicGroup";
+                    cmd1.CommandText = "usr.usp_InsertMusicGroup";
                     cmd1.Parameters.Add(new SqlParameter("Name", "The Doe Family"));
                     cmd1.Parameters.Add(new SqlParameter("EstablishedYear", 2023));
                     int i = cmd1.Parameters.Add(new SqlParameter("InsertedMusicGroupId", SqlDbType.UniqueIdentifier) { Direction = ParameterDirection.Output });
@@ -196,7 +232,7 @@ namespace DbAppConsole
 
 
                     //Artis1
-                    cmd2.CommandText = cmd3.CommandText = cmd4.CommandText = "dbo.usp_InsertArtist";
+                    cmd2.CommandText = cmd3.CommandText = cmd4.CommandText = "usr.usp_InsertArtist";
                     cmd2.Parameters.Add(new SqlParameter("FirstName", "John"));
                     cmd2.Parameters.Add(new SqlParameter("LastName", "Doe"));
                     cmd2.Parameters.Add(new SqlParameter("MusicGroupId", musicGroupId));
