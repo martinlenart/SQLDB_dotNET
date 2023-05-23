@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{585D89DA-255A-4C58-BFC7-AC1CCF1BBD2F}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="DbAppConsole/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DbContextLib/appsettings.Development.json">
     <Files>
-      <File FileName="DbAppConsole/Program.cs" Line="82" Column="63" />
+      <File FileName="DbContextLib/appsettings.Development.json" Line="14" Column="286" />
+      <File FileName="DbAppConsole/Program.cs" />
+      <File FileName="DbModelsLib/csAlbum.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,13 +15,16 @@
           <Node name="Music" expanded="True">
             <Node name="Solution Items" expanded="True" />
             <Node name="DbAppConsole" expanded="True" />
+            <Node name="DbContextLib" expanded="True">
+              <Node name="appsettings.Development.json" selected="True" />
+            </Node>
+            <Node name="DbModelsLib" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.DbAppConsole PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.DbAppConsole PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

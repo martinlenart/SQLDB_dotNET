@@ -32,7 +32,7 @@ namespace DbAppConsole
         {
             #region run below to test the model only
 
-            Console.WriteLine($"\nTesting Model...");
+            //Console.WriteLine($"\nTesting Model...");
             //TestModel();
             #endregion
 
@@ -78,8 +78,8 @@ namespace DbAppConsole
                 Console.WriteLine("\nAccess Views...");
                 AccessViewsAsync().Wait();
 
-                //Console.WriteLine("\nSQL Injection...");
-                //SQLInjectionAsync().Wait();
+                Console.WriteLine("\nSQL Injection...");
+                SQLInjectionAsync().Wait();
             }
 
             Console.WriteLine("\nPress any key to terminate");
